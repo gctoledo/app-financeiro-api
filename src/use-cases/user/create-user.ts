@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 import { User, UserWId } from "../../schemas/user";
 import { PostgresGetUserByEmailRepository } from "../../repositories/postgres/user/get-user-by-email";
 import { PostgresCreateUserRepository } from "../../repositories/postgres/user/create-user";
+import { EmailAlreadyInUseError } from "../../controllers/errors/user";
 
 export class CreateUserUseCase {
   async execute(params: User): Promise<UserWId> {
@@ -11,7 +12,7 @@ export class CreateUserUseCase {
       params.email
     );
     if (emailAlreadyExists) {
-      throw new Error("Email already exists");
+      throw new EmailAlreadyInUseError(params.email);
     }
 
     const userId = uuidv4();
