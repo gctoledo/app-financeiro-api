@@ -2,7 +2,12 @@ import { Request } from "express";
 import { createUserSchema } from "../../schemas/user";
 import { CreateUserUseCase } from "../../use-cases/user/create-user";
 import { ZodError } from "zod";
-import { UserControllerResponse } from "../helpers/http";
+import {
+  UserControllerResponse,
+  badRequest,
+  ok,
+  serverError,
+} from "../helpers/http";
 import { EmailAlreadyInUseError } from "../errors/user";
 
 export class CreateUserController {
@@ -16,30 +21,18 @@ export class CreateUserController {
 
       const createdUser = await createUserUseCase.execute(params);
 
-      return {
-        status: 200,
-        body: createdUser,
-      };
+      return ok(createdUser);
     } catch (err) {
       console.error(err);
       if (err instanceof ZodError) {
-        return {
-          status: 400,
-          body: { message: err.errors[0].message },
-        };
+        return badRequest({ message: err.errors[0].message });
       }
 
       if (err instanceof EmailAlreadyInUseError) {
-        return {
-          status: 400,
-          body: { message: "Email already exists" },
-        };
+        return badRequest({ message: "Email already exists" });
       }
 
-      return {
-        status: 500,
-        body: { message: "Internal server error" },
-      };
+      return serverError();
     }
   }
 }
