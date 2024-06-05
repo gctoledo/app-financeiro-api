@@ -1,5 +1,14 @@
+# Dependencies
 node_modules
 
-dist
 
+# Postgres volume
 .postgres-data
+
+
+# Environment variables
+.env
+
+
+#Compiler generated files
+dist
