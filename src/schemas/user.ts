@@ -24,9 +24,4 @@ export const createUserSchema = z
   })
   .strict();
 
-const createUserWIdSchema = createUserSchema.extend({
-  id: z.string().uuid().trim().min(1, { message: "ID is required." }),
-});
-
 export type User = z.infer<typeof createUserSchema>;
-export type UserWId = z.infer<typeof createUserWIdSchema>;

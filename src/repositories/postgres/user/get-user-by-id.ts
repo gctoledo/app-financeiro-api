@@ -1,9 +1,9 @@
+import { User } from "@prisma/client";
 import prisma from "../../../../prisma/prisma";
 import { UserNotFoundError } from "../../../errors/user";
-import { UserWId } from "../../../schemas/user";
 
 export class GetUserByIdRepository {
-  async execute(userId: string): Promise<UserWId> {
+  async execute(userId: string): Promise<User> {
     const user = await prisma.user.findUnique({
       where: {
         id: userId,

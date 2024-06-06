@@ -1,15 +1,15 @@
-import { UserWId } from "../../schemas/user";
+import { User } from "@prisma/client";
 
 interface ErrorMessage {
   message: string;
 }
 export interface UserControllerResponse {
   status: number;
-  body: UserWId | ErrorMessage;
+  body: User | ErrorMessage;
 }
 
 export const badRequest = (
-  body: UserWId | ErrorMessage
+  body: User | ErrorMessage
 ): UserControllerResponse => {
   return {
     status: 400,
@@ -17,7 +17,7 @@ export const badRequest = (
   };
 };
 
-export const ok = (body: UserWId | ErrorMessage): UserControllerResponse => {
+export const ok = (body: User | ErrorMessage): UserControllerResponse => {
   return {
     status: 200,
     body,
@@ -31,9 +31,7 @@ export const serverError = (): UserControllerResponse => {
   };
 };
 
-export const notFound = (
-  body: UserWId | ErrorMessage
-): UserControllerResponse => {
+export const notFound = (body: User | ErrorMessage): UserControllerResponse => {
   return {
     status: 404,
     body,

@@ -1,8 +1,8 @@
+import { User } from "@prisma/client";
 import prisma from "../../../../prisma/prisma";
-import { UserWId } from "../../../schemas/user";
 
 export class PostgresGetUserByEmailRepository {
-  async execute(email: string): Promise<UserWId | null> {
+  async execute(email: string): Promise<User | null> {
     const user = await prisma.user.findUnique({
       where: {
         email,
