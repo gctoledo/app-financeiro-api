@@ -22,6 +22,9 @@ export const createUserSchema = z
         message: "Password must have at least 6 characters.",
       }),
   })
-  .strict();
+  .strict({ message: "Some provided field is not allowed." });
+
+export const updateUserSchema = createUserSchema.partial();
 
 export type User = z.infer<typeof createUserSchema>;
+export type UpdateUser = z.infer<typeof updateUserSchema>;
