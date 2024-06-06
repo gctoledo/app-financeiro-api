@@ -8,7 +8,7 @@ import {
   ok,
   serverError,
 } from "../helpers/http";
-import { EmailAlreadyInUseError } from "../errors/user";
+import { EmailAlreadyInUseError } from "../../errors/user";
 
 export class CreateUserController {
   async execute(httpRequest: Request): Promise<UserControllerResponse> {

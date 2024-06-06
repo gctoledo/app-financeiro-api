@@ -1,5 +1,5 @@
 import prisma from "../../../../prisma/prisma";
-import { UserNotFoundError } from "../../../controllers/errors/user";
+import { UserNotFoundError } from "../../../errors/user";
 import { UserWId } from "../../../schemas/user";
 
 export class GetUserByIdRepository {
