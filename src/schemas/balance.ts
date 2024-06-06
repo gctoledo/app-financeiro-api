@@ -13,7 +13,7 @@ export const createBalanceSchema = z.object({
     .string()
     .trim()
     .min(10, { message: "Must be at least 10 characters" })
-    .optional(),
+    .nullable(),
   createdAt: z
     .string({ required_error: "Date is required" })
     .datetime({ message: "Date must be a valid date." }),
