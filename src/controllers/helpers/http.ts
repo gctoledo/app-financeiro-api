@@ -1,37 +1,35 @@
-import { User } from "@prisma/client";
+import { Balance, User } from "@prisma/client";
 
 interface ErrorMessage {
   message: string;
 }
-export interface UserControllerResponse {
+export interface ControllerResponse {
   status: number;
-  body: User | ErrorMessage;
+  body: User | Balance | ErrorMessage;
 }
 
-export const badRequest = (
-  body: User | ErrorMessage
-): UserControllerResponse => {
+export const badRequest = (body: User | ErrorMessage): ControllerResponse => {
   return {
     status: 400,
     body,
   };
 };
 
-export const ok = (body: User | ErrorMessage): UserControllerResponse => {
+export const ok = (body: User | ErrorMessage | Balance): ControllerResponse => {
   return {
     status: 200,
     body,
   };
 };
 
-export const serverError = (): UserControllerResponse => {
+export const serverError = (): ControllerResponse => {
   return {
     status: 500,
     body: { message: "Internal server error" },
   };
 };
 
-export const notFound = (body: User | ErrorMessage): UserControllerResponse => {
+export const notFound = (body: User | ErrorMessage): ControllerResponse => {
   return {
     status: 404,
     body,

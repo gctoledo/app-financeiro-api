@@ -1,5 +1,5 @@
 import { Request } from "express";
-import { UserControllerResponse, notFound, ok } from "../helpers/http";
+import { ControllerResponse, notFound, ok } from "../helpers/http";
 import { GetUserByIdUseCase } from "../../use-cases/user/get-user-by-id";
 import { badRequest, serverError } from "../helpers/http";
 import validator from "validator";
@@ -7,7 +7,7 @@ import { UserNotFoundError } from "../../errors/user";
 import { validateId } from "../helpers/validation";
 
 export class GetUserByIdController {
-  async execute(httpRequest: Request): Promise<UserControllerResponse> {
+  async execute(httpRequest: Request): Promise<ControllerResponse> {
     try {
       const { userId } = httpRequest.params;
 

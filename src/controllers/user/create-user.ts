@@ -3,7 +3,7 @@ import { createUserSchema } from "../../schemas/user";
 import { CreateUserUseCase } from "../../use-cases/user/create-user";
 import { ZodError } from "zod";
 import {
-  UserControllerResponse,
+  ControllerResponse,
   badRequest,
   ok,
   serverError,
@@ -11,7 +11,7 @@ import {
 import { EmailAlreadyInUseError } from "../../errors/user";
 
 export class CreateUserController {
-  async execute(httpRequest: Request): Promise<UserControllerResponse> {
+  async execute(httpRequest: Request): Promise<ControllerResponse> {
     try {
       const params = httpRequest.body;
 

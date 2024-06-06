@@ -1,6 +1,6 @@
 import { Request } from "express";
 import {
-  UserControllerResponse,
+  ControllerResponse,
   badRequest,
   notFound,
   ok,
@@ -13,7 +13,7 @@ import { EmailAlreadyInUseError, UserNotFoundError } from "../../errors/user";
 import { ZodError } from "zod";
 
 export class UpdateUserController {
-  async execute(httpRequest: Request): Promise<UserControllerResponse> {
+  async execute(httpRequest: Request): Promise<ControllerResponse> {
     try {
       const { userId } = httpRequest.params;
       const params = httpRequest.body;
