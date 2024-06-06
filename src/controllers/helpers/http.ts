@@ -30,3 +30,12 @@ export const serverError = (): UserControllerResponse => {
     body: { message: "Internal server error" },
   };
 };
+
+export const notFound = (
+  body: UserWId | ErrorMessage
+): UserControllerResponse => {
+  return {
+    status: 404,
+    body,
+  };
+};
