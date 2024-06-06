@@ -4,10 +4,13 @@ import { CreateUserController } from "./controllers/user/create-user";
 import { GetUserByIdController } from "./controllers/user/get-user-by-id";
 import { DeleteUserController } from "./controllers/user/delete-user";
 import { UpdateUserController } from "./controllers/user/update-user";
+import { CreateBalanceController } from "./controllers/balance/create-balance";
 
 const app = express();
 
 app.use(express.json());
+
+/*  USER  */
 
 app.get("/api/users/:userId", async (req: Request, res: Response) => {
   const getUserByIdController = new GetUserByIdController();
@@ -37,6 +40,16 @@ app.delete("/api/users/:userId", async (req: Request, res: Response) => {
   const deleteUserController = new DeleteUserController();
 
   const response = await deleteUserController.execute(req);
+
+  res.status(response.status).send(response.body);
+});
+
+/*  BALANCE  */
+
+app.post("/api/balance", async (req: Request, res: Response) => {
+  const createBalanceController = new CreateBalanceController();
+
+  const response = await createBalanceController.execute(req);
 
   res.status(response.status).send(response.body);
 });
