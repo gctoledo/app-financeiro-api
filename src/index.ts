@@ -5,6 +5,7 @@ import { GetUserByIdController } from "./controllers/user/get-user-by-id";
 import { DeleteUserController } from "./controllers/user/delete-user";
 import { UpdateUserController } from "./controllers/user/update-user";
 import { CreateBalanceController } from "./controllers/balance/create-balance";
+import { DeleteBalanceController } from "./controllers/balance/delete-balance";
 
 const app = express();
 
@@ -50,6 +51,14 @@ app.post("/api/balance", async (req: Request, res: Response) => {
   const createBalanceController = new CreateBalanceController();
 
   const response = await createBalanceController.execute(req);
+
+  res.status(response.status).send(response.body);
+});
+
+app.delete("/api/balance/:balanceId", async (req: Request, res: Response) => {
+  const deleteBalanceController = new DeleteBalanceController();
+
+  const response = await deleteBalanceController.execute(req);
 
   res.status(response.status).send(response.body);
 });
