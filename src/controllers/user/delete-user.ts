@@ -1,11 +1,17 @@
 import { Request } from "express";
 import { validateId } from "../helpers/validation";
-import { badRequest, notFound, ok, serverError } from "../helpers/http";
+import {
+  ControllerResponse,
+  badRequest,
+  notFound,
+  ok,
+  serverError,
+} from "../helpers/http";
 import { DeleteUserUseCase } from "../../use-cases/user/delete-user";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 
 export class DeleteUserController {
-  async execute(httpRequest: Request) {
+  async execute(httpRequest: Request): Promise<ControllerResponse> {
     try {
       const { userId } = httpRequest.params;
 

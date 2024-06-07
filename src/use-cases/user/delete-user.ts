@@ -1,11 +1,11 @@
-import { User } from "@prisma/client";
 import { PostgresDeleteUserRepository } from "../../repositories/postgres/user/delete-user";
+import { ResponseUser } from "../../schemas/user";
 
 export class DeleteUserUseCase {
-  async execute(userId: string): Promise<User> {
+  async execute(userId: string): Promise<ResponseUser> {
     const deleteUserRepository = new PostgresDeleteUserRepository();
 
-    const user = deleteUserRepository.execute(userId);
+    const user = await deleteUserRepository.execute(userId);
 
     return user;
   }

@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { User } from "@prisma/client";
 
 export const createUserSchema = z
   .object({
@@ -26,5 +27,6 @@ export const createUserSchema = z
 
 export const updateUserSchema = createUserSchema.partial();
 
-export type User = z.infer<typeof createUserSchema>;
+export type RequestUser = z.infer<typeof createUserSchema>;
+export type ResponseUser = Omit<User, "password">;
 export type UpdateUser = z.infer<typeof updateUserSchema>;

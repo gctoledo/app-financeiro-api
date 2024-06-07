@@ -1,13 +1,12 @@
-import { User } from "@prisma/client";
 import { PostgresGetUserByEmailRepository } from "../../repositories/postgres/user/get-user-by-email";
-import { UpdateUser } from "../../schemas/user";
+import { ResponseUser, UpdateUser } from "../../schemas/user";
 import { EmailAlreadyInUseError, UserNotFoundError } from "../../errors/user";
 import bcrypt from "bcrypt";
 import { PostgresUpdateUserRepository } from "../../repositories/postgres/user/update-user";
 import { PostgresGetUserByIdRepository } from "../../repositories/postgres/user/get-user-by-id";
 
 export class UpdateUserUseCase {
-  async execute(params: UpdateUser, userId: string): Promise<User> {
+  async execute(params: UpdateUser, userId: string): Promise<ResponseUser> {
     const getUserByIdRepository = new PostgresGetUserByIdRepository();
     const userExist = await getUserByIdRepository.execute(userId);
 

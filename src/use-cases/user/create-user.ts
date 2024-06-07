@@ -1,13 +1,12 @@
 import { v4 as uuidv4 } from "uuid";
 import bcrypt from "bcrypt";
-import { User as PrismaUser } from "@prisma/client";
-import { User } from "../../schemas/user";
+import { RequestUser, ResponseUser } from "../../schemas/user";
 import { PostgresGetUserByEmailRepository } from "../../repositories/postgres/user/get-user-by-email";
 import { PostgresCreateUserRepository } from "../../repositories/postgres/user/create-user";
 import { EmailAlreadyInUseError } from "../../errors/user";
 
 export class CreateUserUseCase {
-  async execute(params: User): Promise<PrismaUser> {
+  async execute(params: RequestUser): Promise<ResponseUser> {
     const getUserByEmailRepository = new PostgresGetUserByEmailRepository();
     const emailAlreadyExists = await getUserByEmailRepository.execute(
       params.email
