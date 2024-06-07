@@ -1,5 +1,6 @@
 import { z } from "zod";
 import validator from "validator";
+import { Balance } from "@prisma/client";
 
 export const createBalanceSchema = z
   .object({
@@ -76,4 +77,5 @@ export const updateBalanceSchema = createBalanceSchema
   .partial();
 
 export type RequestBalance = z.infer<typeof createBalanceSchema>;
+export type ResponseBalance = Balance;
 export type UpdateBalance = z.infer<typeof updateBalanceSchema>;

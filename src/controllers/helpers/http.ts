@@ -1,26 +1,24 @@
-import { Balance } from "@prisma/client";
-import { ResponseUser } from "../../schemas/user";
+import { ResponseUser, ResponseBalance } from "../../schemas";
 
 interface ErrorMessage {
   message: string;
 }
+
+type BodyResponse = ResponseUser | ErrorMessage | ResponseBalance;
+
 export interface ControllerResponse {
   status: number;
-  body: ResponseUser | Balance | ErrorMessage;
+  body: BodyResponse;
 }
 
-export const badRequest = (
-  body: ResponseUser | ErrorMessage
-): ControllerResponse => {
+export const badRequest = (body: BodyResponse): ControllerResponse => {
   return {
     status: 400,
     body,
   };
 };
 
-export const ok = (
-  body: ResponseUser | ErrorMessage | Balance
-): ControllerResponse => {
+export const ok = (body: BodyResponse): ControllerResponse => {
   return {
     status: 200,
     body,
