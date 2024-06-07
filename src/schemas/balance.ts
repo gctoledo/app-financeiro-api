@@ -14,7 +14,7 @@ export const createBalanceSchema = z
       .string()
       .trim()
       .min(10, { message: "Must be at least 10 characters" })
-      .nullable(),
+      .nullish(),
     createdAt: z.string({ required_error: "Date is required" }).date(),
     credit_amount: z
       .number({
@@ -75,5 +75,5 @@ export const updateBalanceSchema = createBalanceSchema
   .omit({ user_id: true })
   .partial();
 
-export type Balance = z.infer<typeof createBalanceSchema>;
+export type RequestBalance = z.infer<typeof createBalanceSchema>;
 export type UpdateBalance = z.infer<typeof updateBalanceSchema>;
