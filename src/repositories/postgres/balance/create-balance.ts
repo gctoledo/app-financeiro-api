@@ -1,8 +1,8 @@
 import prisma from "../../../../prisma/prisma";
-import { Balance } from "@prisma/client";
+import { ResponseBalance } from "../../../schemas";
 
 export class PostgresCreateBalanceRepository {
-  async execute(params: Balance): Promise<Balance> {
+  async execute(params: ResponseBalance): Promise<ResponseBalance> {
     const balance = await prisma.balance.create({
       data: params,
     });

@@ -1,5 +1,5 @@
 import prisma from "../../../../prisma/prisma";
-import { ResponseUser } from "../../../schemas/user";
+import { ResponseUser } from "../../../schemas";
 
 export class PostgresDeleteUserRepository {
   async execute(userId: string): Promise<ResponseUser> {

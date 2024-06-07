@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
 import bcrypt from "bcrypt";
-import { RequestUser, ResponseUser } from "../../schemas/user";
+import { RequestUser, ResponseUser } from "../../schemas";
 import { PostgresGetUserByEmailRepository } from "../../repositories/postgres/user/get-user-by-email";
 import { PostgresCreateUserRepository } from "../../repositories/postgres/user/create-user";
 import { EmailAlreadyInUseError } from "../../errors/user";

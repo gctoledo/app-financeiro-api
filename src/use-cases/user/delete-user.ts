@@ -1,5 +1,5 @@
 import { PostgresDeleteUserRepository } from "../../repositories/postgres/user/delete-user";
-import { ResponseUser } from "../../schemas/user";
+import { ResponseUser } from "../../schemas";
 
 export class DeleteUserUseCase {
   async execute(userId: string): Promise<ResponseUser> {

@@ -1,5 +1,5 @@
 import prisma from "../../../../prisma/prisma";
-import { UpdateUser, ResponseUser } from "../../../schemas/user";
+import { UpdateUser, ResponseUser } from "../../../schemas";
 
 export class PostgresUpdateUserRepository {
   async execute(params: UpdateUser, userId: string): Promise<ResponseUser> {

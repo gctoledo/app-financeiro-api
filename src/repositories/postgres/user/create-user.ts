@@ -1,9 +1,9 @@
-import { User } from "@prisma/client";
+import { User as PrismaUser } from "@prisma/client";
 import prisma from "../../../../prisma/prisma";
-import { ResponseUser } from "../../../schemas/user";
+import { ResponseUser } from "../../../schemas";
 
 export class PostgresCreateUserRepository {
-  async execute(params: User): Promise<ResponseUser> {
+  async execute(params: PrismaUser): Promise<ResponseUser> {
     const user = await prisma.user.create({
       data: {
         email: params.email,

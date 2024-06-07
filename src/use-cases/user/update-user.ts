@@ -1,5 +1,5 @@
 import { PostgresGetUserByEmailRepository } from "../../repositories/postgres/user/get-user-by-email";
-import { ResponseUser, UpdateUser } from "../../schemas/user";
+import { ResponseUser, UpdateUser } from "../../schemas";
 import { EmailAlreadyInUseError, UserNotFoundError } from "../../errors/user";
 import bcrypt from "bcrypt";
 import { PostgresUpdateUserRepository } from "../../repositories/postgres/user/update-user";

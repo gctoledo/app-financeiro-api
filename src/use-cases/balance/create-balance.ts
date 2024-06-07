@@ -1,5 +1,4 @@
-import { Balance } from "@prisma/client";
-import { RequestBalance } from "../../schemas/balance";
+import { RequestBalance, ResponseBalance } from "../../schemas";
 import { PostgresGetUserByIdRepository } from "../../repositories/postgres/user/get-user-by-id";
 import { UserNotFoundError } from "../../errors/user";
 import { v4 as uuidv4 } from "uuid";
@@ -7,7 +6,7 @@ import { Decimal } from "@prisma/client/runtime/library";
 import { PostgresCreateBalanceRepository } from "../../repositories/postgres/balance/create-balance";
 
 export class CreateBalanceUseCase {
-  async execute(params: RequestBalance): Promise<Balance> {
+  async execute(params: RequestBalance): Promise<ResponseBalance> {
     const getUserByIdRepository = new PostgresGetUserByIdRepository();
     const userExist = await getUserByIdRepository.execute(params.user_id);
 
@@ -17,7 +16,7 @@ export class CreateBalanceUseCase {
 
     const balanceId = uuidv4();
 
-    const balance: Balance = {
+    const balance: ResponseBalance = {
       ...params,
       id: balanceId,
       createdAt: new Date(params.createdAt),
