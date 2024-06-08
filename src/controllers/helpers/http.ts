@@ -1,10 +1,15 @@
 import { ResponseUser, ResponseBalance } from "../../schemas";
+import { AuthLoginResponse } from "../../types/user";
 
 interface ErrorMessage {
   message: string;
 }
 
-type BodyResponse = ResponseUser | ErrorMessage | ResponseBalance;
+type BodyResponse =
+  | ResponseUser
+  | ErrorMessage
+  | ResponseBalance
+  | AuthLoginResponse;
 
 export interface ControllerResponse {
   status: number;
@@ -14,6 +19,13 @@ export interface ControllerResponse {
 export const badRequest = (body: BodyResponse): ControllerResponse => {
   return {
     status: 400,
+    body,
+  };
+};
+
+export const unauthorized = (body: BodyResponse): ControllerResponse => {
+  return {
+    status: 401,
     body,
   };
 };
