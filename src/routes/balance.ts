@@ -1,6 +1,7 @@
 import { Router, Request, Response } from "express";
 import { CreateBalanceController } from "../controllers/balance/create-balance";
 import { DeleteBalanceController } from "../controllers/balance/delete-balance";
+import { UpdateBalanceController } from "../controllers/balance/update-balance";
 
 const balanceRouter = Router();
 
@@ -18,6 +19,17 @@ balanceRouter.delete(
     const deleteBalanceController = new DeleteBalanceController();
 
     const response = await deleteBalanceController.execute(req);
+
+    res.status(response.status).send(response.body);
+  }
+);
+
+balanceRouter.patch(
+  "/balance/:balanceId",
+  async (req: Request, res: Response) => {
+    const updateBalanceController = new UpdateBalanceController();
+
+    const response = await updateBalanceController.execute(req);
 
     res.status(response.status).send(response.body);
   }
