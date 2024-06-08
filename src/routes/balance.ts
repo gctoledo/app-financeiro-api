@@ -5,6 +5,7 @@ import { UpdateBalanceController } from "../controllers/balance/update-balance";
 
 const balanceRouter = Router();
 
+//CREATE-BALANCE ROUTE
 balanceRouter.post("/balance", async (req: Request, res: Response) => {
   const createBalanceController = new CreateBalanceController();
 
@@ -13,6 +14,7 @@ balanceRouter.post("/balance", async (req: Request, res: Response) => {
   res.status(response.status).send(response.body);
 });
 
+//DELETE-BALANCE ROUTE
 balanceRouter.delete(
   "/balance/:balanceId",
   async (req: Request, res: Response) => {
@@ -24,6 +26,7 @@ balanceRouter.delete(
   }
 );
 
+//UPDATE-BALANCE ROUTE
 balanceRouter.patch(
   "/balance/:balanceId",
   async (req: Request, res: Response) => {

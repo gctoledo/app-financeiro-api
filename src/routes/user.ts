@@ -3,9 +3,11 @@ import { GetUserByIdController } from "../controllers/user/get-user-by-id";
 import { CreateUserController } from "../controllers/user/create-user";
 import { DeleteUserController } from "../controllers/user/delete-user";
 import { UpdateUserController } from "../controllers/user/update-user";
+import { AuthLoginController } from "../controllers/user/auth-login";
 
 const userRouter = Router();
 
+//GET-USER-BY-ID ROUTE
 userRouter.get("/users/:userId", async (req: Request, res: Response) => {
   const getUserByIdController = new GetUserByIdController();
 
@@ -14,6 +16,7 @@ userRouter.get("/users/:userId", async (req: Request, res: Response) => {
   res.status(response.status).send(response.body);
 });
 
+//CREATE-USER ROUTE
 userRouter.post("/users", async (req: Request, res: Response) => {
   const createUserController = new CreateUserController();
 
@@ -22,6 +25,16 @@ userRouter.post("/users", async (req: Request, res: Response) => {
   res.status(response.status).send(response.body);
 });
 
+//LOGIN-USER ROUTE
+userRouter.post("/users/login", async (req: Request, res: Response) => {
+  const authLoginController = new AuthLoginController();
+
+  const response = await authLoginController.execute(req);
+
+  res.status(response.status).send(response.body);
+});
+
+//UPDATE-USER ROUTE
 userRouter.patch("/users/:userId", async (req: Request, res: Response) => {
   const updateUserController = new UpdateUserController();
 
@@ -30,6 +43,7 @@ userRouter.patch("/users/:userId", async (req: Request, res: Response) => {
   res.status(response.status).send(response.body);
 });
 
+//DELETE-USER ROUTE
 userRouter.delete("/users/:userId", async (req: Request, res: Response) => {
   const deleteUserController = new DeleteUserController();
 
