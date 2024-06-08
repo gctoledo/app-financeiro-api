@@ -1,10 +1,9 @@
 import { Request } from "express";
 import { ControllerResponse, notFound, ok } from "../helpers/http";
 import { GetUserByIdUseCase } from "../../use-cases/user/get-user-by-id";
-import { badRequest, serverError } from "../helpers/http";
-import validator from "validator";
-import { UserNotFoundError } from "../../errors/user";
 import { validateId } from "../helpers/validation";
+import { generateUserErrorResponse } from "../helpers/errors/user";
+import { InvalidIdError } from "../../errors/user";
 
 export class GetUserByIdController {
   async execute(httpRequest: Request): Promise<ControllerResponse> {
@@ -14,7 +13,7 @@ export class GetUserByIdController {
       const idIsValid = validateId(userId);
 
       if (!idIsValid) {
-        return badRequest({ message: "The provided id is invalid" });
+        throw new InvalidIdError();
       }
 
       const getUserByIdUseCase = new GetUserByIdUseCase();
@@ -23,11 +22,9 @@ export class GetUserByIdController {
 
       return ok(user);
     } catch (err) {
-      if (err instanceof UserNotFoundError) {
-        return notFound({ message: err.message });
-      }
+      console.error(err);
 
-      return serverError();
+      return generateUserErrorResponse(err);
     }
   }
 }

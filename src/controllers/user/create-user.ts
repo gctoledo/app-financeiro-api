@@ -1,14 +1,8 @@
 import { Request } from "express";
 import { createUserSchema } from "../../schemas/user";
 import { CreateUserUseCase } from "../../use-cases/user/create-user";
-import { ZodError } from "zod";
-import {
-  ControllerResponse,
-  badRequest,
-  ok,
-  serverError,
-} from "../helpers/http";
-import { EmailAlreadyInUseError } from "../../errors/user";
+import { ControllerResponse, ok } from "../helpers/http";
+import { generateUserErrorResponse } from "../helpers/errors/user";
 
 export class CreateUserController {
   async execute(httpRequest: Request): Promise<ControllerResponse> {
@@ -24,15 +18,8 @@ export class CreateUserController {
       return ok(createdUser);
     } catch (err) {
       console.error(err);
-      if (err instanceof ZodError) {
-        return badRequest({ message: err.errors[0].message });
-      }
 
-      if (err instanceof EmailAlreadyInUseError) {
-        return badRequest({ message: "Email already exists" });
-      }
-
-      return serverError();
+      return generateUserErrorResponse(err);
     }
   }
 }

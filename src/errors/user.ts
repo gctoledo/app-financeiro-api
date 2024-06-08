@@ -15,6 +15,13 @@ export class UserNotFoundError extends Error {
 export class AuthenticationError extends Error {
   constructor() {
     super(`The email or password is invalid.`);
-    this.name = "UserNotFoundError";
+    this.name = "AuthenticationError";
+  }
+}
+
+export class InvalidIdError extends Error {
+  constructor() {
+    super(`The provided id is not valid.`);
+    this.name = "InvalidIdError";
   }
 }

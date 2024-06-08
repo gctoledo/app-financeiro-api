@@ -1,12 +1,11 @@
 import { Request } from "express";
 import { AuthLoginUseCase } from "../../use-cases/user/auth-login";
 import { authLoginSchema } from "../../schemas";
-import { badRequest, ok, serverError, unauthorized } from "../helpers/http";
-import { ZodError } from "zod";
-import { AuthenticationError } from "../../errors/user";
+import { ControllerResponse, ok } from "../helpers/http";
+import { generateUserErrorResponse } from "../helpers/errors/user";
 
 export class AuthLoginController {
-  async execute(httpRequest: Request) {
+  async execute(httpRequest: Request): Promise<ControllerResponse> {
     try {
       const { email, password } = await authLoginSchema.parseAsync(
         httpRequest.body
@@ -20,15 +19,7 @@ export class AuthLoginController {
     } catch (err) {
       console.error(err);
 
-      if (err instanceof ZodError) {
-        return badRequest({ message: err.errors[0].message });
-      }
-
-      if (err instanceof AuthenticationError) {
-        return unauthorized({ message: err.message });
-      }
-
-      return serverError();
+      return generateUserErrorResponse(err);
     }
   }
 }

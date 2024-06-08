@@ -1,16 +1,10 @@
 import { Request } from "express";
-import {
-  ControllerResponse,
-  badRequest,
-  notFound,
-  ok,
-  serverError,
-} from "../helpers/http";
+import { ControllerResponse, ok } from "../helpers/http";
 import { validateId } from "../helpers/validation";
 import { updateUserSchema } from "../../schemas/user";
 import { UpdateUserUseCase } from "../../use-cases/user/update-user";
-import { EmailAlreadyInUseError, UserNotFoundError } from "../../errors/user";
-import { ZodError } from "zod";
+import { InvalidIdError } from "../../errors/user";
+import { generateUserErrorResponse } from "../helpers/errors/user";
 
 export class UpdateUserController {
   async execute(httpRequest: Request): Promise<ControllerResponse> {
@@ -21,7 +15,7 @@ export class UpdateUserController {
       const idIsValid = validateId(userId);
 
       if (!idIsValid) {
-        return badRequest({ message: "Invalid user id" });
+        throw new InvalidIdError();
       }
 
       await updateUserSchema.parseAsync(params);
@@ -33,19 +27,7 @@ export class UpdateUserController {
     } catch (err) {
       console.error(err);
 
-      if (err instanceof ZodError) {
-        return badRequest({ message: err.errors[0].message });
-      }
-
-      if (err instanceof UserNotFoundError) {
-        return notFound({ message: err.message });
-      }
-
-      if (err instanceof EmailAlreadyInUseError) {
-        return badRequest({ message: err.message });
-      }
-
-      return serverError();
+      return generateUserErrorResponse(err);
     }
   }
 }

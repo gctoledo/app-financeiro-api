@@ -1,14 +1,9 @@
 import { Request } from "express";
 import { validateId } from "../helpers/validation";
-import {
-  ControllerResponse,
-  badRequest,
-  notFound,
-  ok,
-  serverError,
-} from "../helpers/http";
+import { ControllerResponse, ok } from "../helpers/http";
 import { DeleteUserUseCase } from "../../use-cases/user/delete-user";
-import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
+import { generateUserErrorResponse } from "../helpers/errors/user";
+import { InvalidIdError } from "../../errors/user";
 
 export class DeleteUserController {
   async execute(httpRequest: Request): Promise<ControllerResponse> {
@@ -18,7 +13,7 @@ export class DeleteUserController {
       const idIsValid = validateId(userId);
 
       if (!idIsValid) {
-        return badRequest({ message: "The provided id is invalid" });
+        throw new InvalidIdError();
       }
 
       const deleteUserUseCase = new DeleteUserUseCase();
@@ -28,13 +23,7 @@ export class DeleteUserController {
     } catch (err) {
       console.error(err);
 
-      if (err instanceof PrismaClientKnownRequestError) {
-        if (err.code === "P2025") {
-          return notFound({ message: "User does not exist" });
-        }
-      }
-
-      return serverError();
+      return generateUserErrorResponse(err);
     }
   }
 }
