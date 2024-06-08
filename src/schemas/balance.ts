@@ -73,7 +73,7 @@ export const createBalanceSchema = z
   .strict({ message: "Some provided field is not allowed." });
 
 export const updateBalanceSchema = createBalanceSchema
-  .omit({ user_id: true })
+  .omit({ user_id: true, createdAt: true })
   .partial();
 
 export type RequestBalance = z.infer<typeof createBalanceSchema>;
