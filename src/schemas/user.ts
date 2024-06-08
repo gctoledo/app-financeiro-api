@@ -27,6 +27,11 @@ export const createUserSchema = z
 
 export const updateUserSchema = createUserSchema.partial();
 
+export const authLoginSchema = createUserSchema.omit({
+  first_name: true,
+  last_name: true,
+});
+
 export type RequestUser = z.infer<typeof createUserSchema>;
 export type ResponseUser = Omit<User, "password">;
 export type UpdateUser = z.infer<typeof updateUserSchema>;
