@@ -1,8 +1,8 @@
 import { Request } from "express";
-import { ControllerResponse, notFound, ok } from "../helpers/http";
+import { ControllerResponse, notFound, ok } from "../helpers/responses";
 import { GetUserByIdUseCase } from "../../use-cases/user/get-user-by-id";
 import { validateId } from "../helpers/validation";
-import { generateUserErrorResponse } from "../helpers/errors/user";
+import { handleUserErrorResponse } from "../helpers/errors/handleUserError";
 import { InvalidIdError } from "../../errors/user";
 
 export class GetUserByIdController {
@@ -24,7 +24,7 @@ export class GetUserByIdController {
     } catch (err) {
       console.error(err);
 
-      return generateUserErrorResponse(err);
+      return handleUserErrorResponse(err);
     }
   }
 }

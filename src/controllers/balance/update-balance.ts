@@ -6,7 +6,7 @@ import {
   notFound,
   ok,
   serverError,
-} from "../helpers/http";
+} from "../helpers/responses";
 import { UpdateBalance, updateBalanceSchema } from "../../schemas";
 import { UpdateBalanceUseCase } from "../../use-cases/balance/update-balance";
 import { ZodError } from "zod";

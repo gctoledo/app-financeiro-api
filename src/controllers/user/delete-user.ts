@@ -1,8 +1,8 @@
 import { Request } from "express";
 import { validateId } from "../helpers/validation";
-import { ControllerResponse, ok } from "../helpers/http";
+import { ControllerResponse, ok } from "../helpers/responses";
 import { DeleteUserUseCase } from "../../use-cases/user/delete-user";
-import { generateUserErrorResponse } from "../helpers/errors/user";
+import { handleUserErrorResponse } from "../helpers/errors/handleUserError";
 import { InvalidIdError } from "../../errors/user";
 
 export class DeleteUserController {
@@ -23,7 +23,7 @@ export class DeleteUserController {
     } catch (err) {
       console.error(err);
 
-      return generateUserErrorResponse(err);
+      return handleUserErrorResponse(err);
     }
   }
 }

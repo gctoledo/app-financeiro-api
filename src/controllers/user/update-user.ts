@@ -1,10 +1,10 @@
 import { Request } from "express";
-import { ControllerResponse, ok } from "../helpers/http";
+import { ControllerResponse, ok } from "../helpers/responses";
 import { validateId } from "../helpers/validation";
 import { updateUserSchema } from "../../schemas/user";
 import { UpdateUserUseCase } from "../../use-cases/user/update-user";
 import { InvalidIdError } from "../../errors/user";
-import { generateUserErrorResponse } from "../helpers/errors/user";
+import { handleUserErrorResponse } from "../helpers/errors/handleUserError";
 
 export class UpdateUserController {
   async execute(httpRequest: Request): Promise<ControllerResponse> {
@@ -27,7 +27,7 @@ export class UpdateUserController {
     } catch (err) {
       console.error(err);
 
-      return generateUserErrorResponse(err);
+      return handleUserErrorResponse(err);
     }
   }
 }

@@ -5,7 +5,7 @@ import {
   notFound,
   ok,
   serverError,
-} from "../helpers/http";
+} from "../helpers/responses";
 import { DeleteBalanceUseCase } from "../../use-cases/balance/delete-balance";
 import { validateId } from "../helpers/validation";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";

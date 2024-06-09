@@ -4,7 +4,7 @@ import {
   badRequest,
   ok,
   serverError,
-} from "../helpers/http";
+} from "../helpers/responses";
 import { CreateBalanceUseCase } from "../../use-cases/balance/create-balance";
 import { createBalanceSchema } from "../../schemas/balance";
 import { ZodError } from "zod";

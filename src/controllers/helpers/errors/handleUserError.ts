@@ -1,5 +1,5 @@
-import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { ZodError } from "zod";
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import {
   AuthenticationError,
   EmailAlreadyInUseError,
@@ -12,9 +12,9 @@ import {
   notFound,
   serverError,
   unauthorized,
-} from "../http";
+} from "../responses";
 
-export const generateUserErrorResponse = (err: any): ControllerResponse => {
+export const handleUserErrorResponse = (err: any): ControllerResponse => {
   if (err instanceof ZodError) {
     return badRequest({ message: err.errors[0].message });
   }
