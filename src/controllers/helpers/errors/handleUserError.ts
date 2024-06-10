@@ -2,6 +2,7 @@ import { ZodError } from "zod";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import {
   AuthenticationError,
+  AuthorizationError,
   EmailAlreadyInUseError,
   InvalidIdError,
   UserNotFoundError,
@@ -21,7 +22,7 @@ export const handleUserErrorResponse = (err: any): ControllerResponse => {
     return badRequest({ message: err.errors[0].message });
   }
 
-  if (err instanceof AuthenticationError) {
+  if (err instanceof AuthenticationError || err instanceof AuthorizationError) {
     return unauthorized({ message: err.message });
   }
 

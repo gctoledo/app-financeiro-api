@@ -19,6 +19,13 @@ export class AuthenticationError extends Error {
   }
 }
 
+export class AuthorizationError extends Error {
+  constructor() {
+    super(`You are not authorized to perform this action.`);
+    this.name = "AuthorizationError";
+  }
+}
+
 export class InvalidIdError extends Error {
   constructor() {
     super(`The provided id is not valid.`);
