@@ -6,7 +6,7 @@ import {
   serverError,
 } from "../helpers/responses";
 import { CreateBalanceUseCase } from "../../use-cases/balance/create-balance";
-import { createBalanceSchema } from "../../schemas/balance";
+import { RequestBalance, createBalanceSchema } from "../../schemas/balance";
 import { ZodError } from "zod";
 import { UserNotFoundError } from "../../errors/user";
 
@@ -15,12 +15,15 @@ export class CreateBalanceController {
     try {
       const params = httpRequest.body;
 
-      const balance = {
+      const userId = httpRequest.params.userId;
+
+      const balance: RequestBalance = {
         ...params,
         cash_amount: Number(params.cash_amount),
         credit_amount: Number(params.credit_amount),
         debit_amount: Number(params.debit_amount),
         expense_amount: Number(params.expense_amount),
+        user_id: userId,
       };
 
       await createBalanceSchema.parseAsync(balance);
