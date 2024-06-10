@@ -3,30 +3,40 @@ import { CreateBalanceController } from "../controllers/balance/create-balance";
 import { DeleteBalanceController } from "../controllers/balance/delete-balance";
 import { UpdateBalanceController } from "../controllers/balance/update-balance";
 import { GetBalancesByUserIdController } from "../controllers/balance/get-balances-by-user-id";
+import { isAuthenticated } from "../middlewares/isAuthenticated";
 
 const balanceRouter = Router();
 
 //GET-BALANCES-BY-USER-ID ROUTE
-balanceRouter.get("/balances/:userId", async (req: Request, res: Response) => {
-  const getBalancesByUserIdController = new GetBalancesByUserIdController();
+balanceRouter.get(
+  "/balances",
+  isAuthenticated,
+  async (req: Request, res: Response) => {
+    const getBalancesByUserIdController = new GetBalancesByUserIdController();
 
-  const response = await getBalancesByUserIdController.execute(req);
+    const response = await getBalancesByUserIdController.execute(req);
 
-  res.status(response.status).send(response.body);
-});
+    res.status(response.status).send(response.body);
+  }
+);
 
 //CREATE-BALANCE ROUTE
-balanceRouter.post("/balance", async (req: Request, res: Response) => {
-  const createBalanceController = new CreateBalanceController();
+balanceRouter.post(
+  "/balance",
+  isAuthenticated,
+  async (req: Request, res: Response) => {
+    const createBalanceController = new CreateBalanceController();
 
-  const response = await createBalanceController.execute(req);
+    const response = await createBalanceController.execute(req);
 
-  res.status(response.status).send(response.body);
-});
+    res.status(response.status).send(response.body);
+  }
+);
 
 //DELETE-BALANCE ROUTE
 balanceRouter.delete(
   "/balance/:balanceId",
+  isAuthenticated,
   async (req: Request, res: Response) => {
     const deleteBalanceController = new DeleteBalanceController();
 
@@ -39,6 +49,7 @@ balanceRouter.delete(
 //UPDATE-BALANCE ROUTE
 balanceRouter.patch(
   "/balance/:balanceId",
+  isAuthenticated,
   async (req: Request, res: Response) => {
     const updateBalanceController = new UpdateBalanceController();
 
