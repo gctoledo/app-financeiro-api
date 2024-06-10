@@ -2,8 +2,18 @@ import { Router, Request, Response } from "express";
 import { CreateBalanceController } from "../controllers/balance/create-balance";
 import { DeleteBalanceController } from "../controllers/balance/delete-balance";
 import { UpdateBalanceController } from "../controllers/balance/update-balance";
+import { GetBalancesByUserIdController } from "../controllers/balance/get-balances-by-user-id";
 
 const balanceRouter = Router();
+
+//GET-BALANCES-BY-USER-ID ROUTE
+balanceRouter.get("/balances/:userId", async (req: Request, res: Response) => {
+  const getBalancesByUserIdController = new GetBalancesByUserIdController();
+
+  const response = await getBalancesByUserIdController.execute(req);
+
+  res.status(response.status).send(response.body);
+});
 
 //CREATE-BALANCE ROUTE
 balanceRouter.post("/balance", async (req: Request, res: Response) => {
