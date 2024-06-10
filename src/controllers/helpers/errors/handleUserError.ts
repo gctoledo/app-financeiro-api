@@ -15,6 +15,8 @@ import {
 } from "../responses";
 
 export const handleUserErrorResponse = (err: any): ControllerResponse => {
+  console.error(err);
+
   if (err instanceof ZodError) {
     return badRequest({ message: err.errors[0].message });
   }

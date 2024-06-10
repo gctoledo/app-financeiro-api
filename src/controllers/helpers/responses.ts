@@ -6,9 +6,10 @@ interface ErrorMessage {
 }
 
 type BodyResponse =
-  | ResponseUser
   | ErrorMessage
+  | ResponseUser
   | ResponseBalance
+  | ResponseBalance[]
   | AuthLoginResponse;
 
 export interface ControllerResponse {
