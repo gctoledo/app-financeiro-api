@@ -1,4 +1,4 @@
-# Finance App
+# App Financeiro
 
 Projeto de um dashboard financeiro para organização das finanças de um estabelecimento comercial, onde o usuário poderá cadastrar sua conta, registrar seus saldos diários.
 
