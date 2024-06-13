@@ -14,6 +14,7 @@ import {
   serverError,
   unauthorized,
 } from "../responses";
+import jwt from "jsonwebtoken";
 
 export const handleUserErrorResponse = (err: any): ControllerResponse => {
   console.error(err);
@@ -42,6 +43,10 @@ export const handleUserErrorResponse = (err: any): ControllerResponse => {
 
   if (err instanceof InvalidIdError) {
     return badRequest({ message: err.message });
+  }
+
+  if (err instanceof jwt.JsonWebTokenError) {
+    return unauthorized({ message: err.message });
   }
 
   return serverError();

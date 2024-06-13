@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
+import { handleUserErrorResponse } from "../controllers/helpers/errors/handleUserError";
 
 export const isAuthenticated = (
   req: Request,
@@ -21,8 +22,8 @@ export const isAuthenticated = (
 
     return next();
   } catch (err) {
-    console.error(err);
+    const response = handleUserErrorResponse(err);
 
-    res.status(401).send({ message: "Authorization failed" });
+    res.status(response.status).send(response.body);
   }
 };
