@@ -8,7 +8,7 @@ import { handleUserErrorResponse } from "../helpers/errors/handleUserError";
 export class GetBalancesByUserIdController {
   async execute(httpRequest: Request): Promise<ControllerResponse> {
     try {
-      const userId = httpRequest.params.userId;
+      const userId = httpRequest.userId;
 
       const idIsValid = validateId(userId);
 

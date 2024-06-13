@@ -9,7 +9,7 @@ import { handleUserErrorResponse } from "../helpers/errors/handleUserError";
 export class UpdateUserController {
   async execute(httpRequest: Request): Promise<ControllerResponse> {
     try {
-      const { userId } = httpRequest.params;
+      const userId = httpRequest.userId;
       const params = httpRequest.body;
 
       const idIsValid = validateId(userId);

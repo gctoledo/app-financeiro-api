@@ -8,7 +8,7 @@ import { InvalidIdError } from "../../errors/user";
 export class DeleteUserController {
   async execute(httpRequest: Request): Promise<ControllerResponse> {
     try {
-      const { userId } = httpRequest.params;
+      const userId = httpRequest.userId;
 
       const idIsValid = validateId(userId);
 

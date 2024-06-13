@@ -15,7 +15,7 @@ export class CreateBalanceController {
     try {
       const params = httpRequest.body;
 
-      const userId = httpRequest.params.userId;
+      const userId = httpRequest.userId;
 
       const balance: RequestBalance = {
         ...params,

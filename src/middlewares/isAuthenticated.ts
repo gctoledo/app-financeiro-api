@@ -17,7 +17,7 @@ export const isAuthenticated = (
   try {
     const { sub } = jwt.verify(token, process.env.JWT_SECRET as string);
 
-    req.params.userId = sub as string;
+    req.userId = sub as string;
 
     return next();
   } catch (err) {
