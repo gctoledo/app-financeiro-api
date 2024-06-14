@@ -2,7 +2,7 @@ import { AuthenticationError } from "../../errors/user";
 import { PostgresGetUserByEmailRepository } from "../../repositories/postgres/user/get-user-by-email";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { AuthLoginResponse } from "../../types/user";
+import { AuthLoginResponse } from "../../controllers/helpers/types";
 
 export class AuthLoginUseCase {
   async execute(email: string, password: string): Promise<AuthLoginResponse> {

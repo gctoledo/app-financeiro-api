@@ -4,7 +4,7 @@ export interface ErrorMessage {
   message: string;
 }
 
-interface AuthLoginResponse {
+export interface AuthLoginResponse {
   token: string;
   data: ResponseUser;
 }
