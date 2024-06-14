@@ -1,8 +1,9 @@
 import { Request } from "express";
 import { createUserSchema } from "../../schemas/user";
 import { CreateUserUseCase } from "../../use-cases/user/create-user";
-import { ControllerResponse, ok } from "../helpers/responses";
+import { ok } from "../helpers/responses";
 import { handleUserErrorResponse } from "../helpers/errors/handleUserError";
+import { ControllerResponse } from "../helpers/types";
 
 export class CreateUserController {
   async execute(httpRequest: Request): Promise<ControllerResponse> {

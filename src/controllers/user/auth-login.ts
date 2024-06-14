@@ -1,8 +1,9 @@
 import { Request } from "express";
 import { AuthLoginUseCase } from "../../use-cases/user/auth-login";
 import { authLoginSchema } from "../../schemas";
-import { ControllerResponse, ok } from "../helpers/responses";
+import { ok } from "../helpers/responses";
 import { handleUserErrorResponse } from "../helpers/errors/handleUserError";
+import { ControllerResponse } from "../helpers/types";
 
 export class AuthLoginController {
   async execute(httpRequest: Request): Promise<ControllerResponse> {

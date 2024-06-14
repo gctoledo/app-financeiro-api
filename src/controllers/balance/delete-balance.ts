@@ -1,14 +1,9 @@
 import { Request } from "express";
-import {
-  ControllerResponse,
-  badRequest,
-  notFound,
-  ok,
-  serverError,
-} from "../helpers/responses";
+import { badRequest, notFound, ok, serverError } from "../helpers/responses";
 import { DeleteBalanceUseCase } from "../../use-cases/balance/delete-balance";
 import { validateId } from "../helpers/validation";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
+import { ControllerResponse } from "../helpers/types";
 
 export class DeleteBalanceController {
   async execute(httpRequest: Request): Promise<ControllerResponse> {

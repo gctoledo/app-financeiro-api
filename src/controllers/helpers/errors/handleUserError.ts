@@ -7,14 +7,9 @@ import {
   InvalidIdError,
   UserNotFoundError,
 } from "../../../errors/user";
-import {
-  ControllerResponse,
-  badRequest,
-  notFound,
-  serverError,
-  unauthorized,
-} from "../responses";
+import { badRequest, notFound, serverError, unauthorized } from "../responses";
 import jwt from "jsonwebtoken";
+import { ControllerResponse } from "../types";
 
 export const handleUserErrorResponse = (err: any): ControllerResponse => {
   console.error(err);

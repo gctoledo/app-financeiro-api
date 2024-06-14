@@ -1,9 +1,10 @@
 import { Request } from "express";
-import { ControllerResponse, ok } from "../helpers/responses";
+import { ok } from "../helpers/responses";
 import { GetUserByIdUseCase } from "../../use-cases/user/get-user-by-id";
 import { validateId } from "../helpers/validation";
 import { handleUserErrorResponse } from "../helpers/errors/handleUserError";
 import { InvalidIdError } from "../../errors/user";
+import { ControllerResponse } from "../helpers/types";
 
 export class GetUserByIdController {
   async execute(httpRequest: Request): Promise<ControllerResponse> {

@@ -1,21 +1,4 @@
-import { ResponseUser, ResponseBalance } from "../../schemas";
-import { AuthLoginResponse } from "../../types/user";
-
-interface ErrorMessage {
-  message: string;
-}
-
-type BodyResponse =
-  | ErrorMessage
-  | ResponseUser
-  | ResponseBalance
-  | ResponseBalance[]
-  | AuthLoginResponse;
-
-export interface ControllerResponse {
-  status: number;
-  body: BodyResponse;
-}
+import { ControllerResponse, BodyResponse, ErrorMessage } from "./types";
 
 export const badRequest = (body: BodyResponse): ControllerResponse => {
   return {

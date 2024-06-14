@@ -1,10 +1,11 @@
 import { Request } from "express";
-import { ControllerResponse, ok } from "../helpers/responses";
+import { ok } from "../helpers/responses";
 import { validateId } from "../helpers/validation";
 import { updateUserSchema } from "../../schemas/user";
 import { UpdateUserUseCase } from "../../use-cases/user/update-user";
 import { InvalidIdError } from "../../errors/user";
 import { handleUserErrorResponse } from "../helpers/errors/handleUserError";
+import { ControllerResponse } from "../helpers/types";
 
 export class UpdateUserController {
   async execute(httpRequest: Request): Promise<ControllerResponse> {

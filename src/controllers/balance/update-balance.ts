@@ -1,16 +1,11 @@
 import { Request } from "express";
 import { validateId } from "../helpers/validation";
-import {
-  ControllerResponse,
-  badRequest,
-  notFound,
-  ok,
-  serverError,
-} from "../helpers/responses";
+import { badRequest, notFound, ok, serverError } from "../helpers/responses";
 import { UpdateBalance, updateBalanceSchema } from "../../schemas";
 import { UpdateBalanceUseCase } from "../../use-cases/balance/update-balance";
 import { ZodError } from "zod";
 import { BalanceNotFoundError } from "../../errors/balance";
+import { ControllerResponse } from "../helpers/types";
 
 export class UpdateBalanceController {
   async execute(httpRequest: Request): Promise<ControllerResponse> {

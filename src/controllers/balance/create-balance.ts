@@ -1,14 +1,10 @@
 import { Request } from "express";
-import {
-  ControllerResponse,
-  badRequest,
-  ok,
-  serverError,
-} from "../helpers/responses";
+import { badRequest, ok, serverError } from "../helpers/responses";
 import { CreateBalanceUseCase } from "../../use-cases/balance/create-balance";
 import { RequestBalance, createBalanceSchema } from "../../schemas/balance";
 import { ZodError } from "zod";
 import { UserNotFoundError } from "../../errors/user";
+import { ControllerResponse } from "../helpers/types";
 
 export class CreateBalanceController {
   async execute(httpRequest: Request): Promise<ControllerResponse> {
