@@ -5,6 +5,7 @@ import { DeleteUserController } from "../controllers/user/delete-user";
 import { UpdateUserController } from "../controllers/user/update-user";
 import { AuthLoginController } from "../controllers/user/auth-login";
 import { isAuthenticated } from "../middlewares/isAuthenticated";
+import { ValidateTokenController } from "../controllers/user/validate-token";
 
 const userRouter = Router();
 
@@ -20,6 +21,15 @@ userRouter.get(
     res.status(response.status).send(response.body);
   }
 );
+
+//VALIDATE TOKEN ROUTE
+userRouter.get("/user/validate", async (req: Request, res: Response) => {
+  const validateTokenController = new ValidateTokenController();
+
+  const response = validateTokenController.execute(req);
+
+  res.status(response.status).send(response.body);
+});
 
 //CREATE-USER ROUTE
 userRouter.post("/user", async (req: Request, res: Response) => {
