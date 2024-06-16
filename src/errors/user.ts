@@ -21,7 +21,7 @@ export class AuthenticationError extends Error {
 
 export class AuthorizationError extends Error {
   constructor() {
-    super(`You are not authorized to perform this action.`);
+    super(`Authentication is not provided.`);
     this.name = "AuthorizationError";
   }
 }
