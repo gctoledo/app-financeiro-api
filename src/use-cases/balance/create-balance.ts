@@ -24,7 +24,6 @@ export class CreateBalanceUseCase {
       debit_amount: new Decimal(params.debit_amount),
       cash_amount: new Decimal(params.cash_amount),
       expense_amount: new Decimal(params.expense_amount),
-      description: params.description ?? null,
     };
 
     const createBalanceRepository = new PostgresCreateBalanceRepository();

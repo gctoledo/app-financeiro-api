@@ -7,15 +7,6 @@ export const createBalanceSchema = z
     user_id: z
       .string({ required_error: "User ID is required." })
       .uuid({ message: "user_id must be a valid id." }),
-    name: z
-      .string({ required_error: "Name is required." })
-      .trim()
-      .min(1, { message: "Name is required." }),
-    description: z
-      .string()
-      .trim()
-      .min(10, { message: "Must be at least 10 characters" })
-      .nullish(),
     createdAt: z.string({ required_error: "Date is required" }).date(),
     credit_amount: z
       .number({

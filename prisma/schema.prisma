@@ -19,12 +19,10 @@ model User {
 model Balance {
   id             String   @id @default(uuid())
   user_id        String
-  user           User     @relation(fields: [user_id], references: [id])
-  name           String   @db.VarChar(50)
-  description    String?  @db.VarChar(200)
   createdAt      DateTime @db.Date
   credit_amount  Decimal  @db.Decimal(10, 2)
   debit_amount   Decimal  @db.Decimal(10, 2)
   cash_amount    Decimal  @db.Decimal(10, 2)
   expense_amount Decimal  @db.Decimal(10, 2)
+  user           User     @relation(fields: [user_id], references: [id])
 }
