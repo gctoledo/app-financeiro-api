@@ -4,6 +4,7 @@ import { DeleteBalanceController } from "../controllers/balance/delete-balance";
 import { UpdateBalanceController } from "../controllers/balance/update-balance";
 import { GetBalancesByUserIdController } from "../controllers/balance/get-balances-by-user-id";
 import { isAuthenticated } from "../middlewares/isAuthenticated";
+import { GetBalanceByIdController } from "../controllers/balance/get-balance-by-id";
 
 const balanceRouter = Router();
 
@@ -15,6 +16,19 @@ balanceRouter.get(
     const getBalancesByUserIdController = new GetBalancesByUserIdController();
 
     const response = await getBalancesByUserIdController.execute(req);
+
+    res.status(response.status).send(response.body);
+  }
+);
+
+//GET-BALANCE-BY-ID ROUTE
+balanceRouter.get(
+  "/balance/:balanceId",
+  isAuthenticated,
+  async (req: Request, res: Response) => {
+    const getBalanceByIdController = new GetBalanceByIdController();
+
+    const response = await getBalanceByIdController.execute(req);
 
     res.status(response.status).send(response.body);
   }
