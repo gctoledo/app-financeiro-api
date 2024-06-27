@@ -2,7 +2,7 @@ import { Request } from "express";
 import { validateId } from "../helpers/validation";
 import { InvalidIdError } from "../../errors/user";
 import { GetBalancesByUserIdUseCase } from "../../use-cases/balance/get-balances-by-user-id";
-import { handleUserErrorResponse } from "../helpers/errors/handleUserError";
+import { handleErrorResponse } from "../helpers/errors/handleUserError";
 import { ControllerResponse } from "../helpers/types";
 import { ok } from "../helpers/responses";
 
@@ -30,7 +30,7 @@ export class GetBalancesByUserIdController {
 
       return ok(balances);
     } catch (err) {
-      return handleUserErrorResponse(err);
+      return handleErrorResponse(err);
     }
   }
 }

@@ -4,8 +4,7 @@ import { InvalidIdError } from "../../errors/user";
 import { GetBalanceByIdUseCase } from "../../use-cases/balance/get-balance-by-id";
 import { ok } from "../helpers/responses";
 import { ControllerResponse } from "../helpers/types";
-import { handleUserErrorResponse } from "../helpers/errors/handleUserError";
-
+import { handleErrorResponse } from "../helpers/errors/handleUserError";
 
 export class GetBalanceByIdController {
   async execute(httpRequest: Request): Promise<ControllerResponse> {
@@ -25,7 +24,7 @@ export class GetBalanceByIdController {
 
       return ok(balance);
     } catch (err) {
-      return handleUserErrorResponse(err);
+      return handleErrorResponse(err);
     }
   }
 }

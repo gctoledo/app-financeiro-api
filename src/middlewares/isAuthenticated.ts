@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
-import { handleUserErrorResponse } from "../controllers/helpers/errors/handleUserError";
+import { handleErrorResponse } from "../controllers/helpers/errors/handleUserError";
 
 export const isAuthenticated = (
   req: Request,
@@ -22,7 +22,7 @@ export const isAuthenticated = (
 
     return next();
   } catch (err) {
-    const response = handleUserErrorResponse(err);
+    const response = handleErrorResponse(err);
 
     res.status(response.status).send(response.body);
   }

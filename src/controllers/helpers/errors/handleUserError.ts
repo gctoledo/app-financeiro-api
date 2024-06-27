@@ -10,15 +10,23 @@ import {
 import { badRequest, notFound, serverError, unauthorized } from "../responses";
 import jwt from "jsonwebtoken";
 import { ControllerResponse } from "../types";
+import {
+  BalanceAuthError,
+  BalanceNotFoundError,
+} from "../../../errors/balance";
 
-export const handleUserErrorResponse = (err: any): ControllerResponse => {
+export const handleErrorResponse = (err: any): ControllerResponse => {
   console.error(err);
 
   if (err instanceof ZodError) {
     return badRequest({ message: err.errors[0].message });
   }
 
-  if (err instanceof AuthenticationError || err instanceof AuthorizationError) {
+  if (
+    err instanceof AuthenticationError ||
+    err instanceof AuthorizationError ||
+    BalanceAuthError
+  ) {
     return unauthorized({ message: err.message });
   }
 
@@ -33,6 +41,10 @@ export const handleUserErrorResponse = (err: any): ControllerResponse => {
   }
 
   if (err instanceof UserNotFoundError) {
+    return notFound({ message: err.message });
+  }
+
+  if (err instanceof BalanceNotFoundError) {
     return notFound({ message: err.message });
   }
 

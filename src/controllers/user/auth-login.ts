@@ -2,7 +2,7 @@ import { Request } from "express";
 import { AuthLoginUseCase } from "../../use-cases/user/auth-login";
 import { authLoginSchema } from "../../schemas";
 import { ok } from "../helpers/responses";
-import { handleUserErrorResponse } from "../helpers/errors/handleUserError";
+import { handleErrorResponse } from "../helpers/errors/handleUserError";
 import { ControllerResponse } from "../helpers/types";
 
 export class AuthLoginController {
@@ -20,7 +20,7 @@ export class AuthLoginController {
     } catch (err) {
       console.error(err);
 
-      return handleUserErrorResponse(err);
+      return handleErrorResponse(err);
     }
   }
 }

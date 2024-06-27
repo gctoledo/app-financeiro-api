@@ -1,7 +1,7 @@
 import { Request } from "express";
 import { AuthorizationError } from "../../errors/user";
 import jwt from "jsonwebtoken";
-import { handleUserErrorResponse } from "../helpers/errors/handleUserError";
+import { handleErrorResponse } from "../helpers/errors/handleUserError";
 import { ok } from "../helpers/responses";
 import { ControllerResponse } from "../helpers/types";
 
@@ -36,7 +36,7 @@ export class ValidateTokenController {
         },
       });
     } catch (err) {
-      return handleUserErrorResponse(err);
+      return handleErrorResponse(err);
     }
   }
 }

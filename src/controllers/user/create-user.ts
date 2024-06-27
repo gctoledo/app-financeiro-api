@@ -2,7 +2,7 @@ import { Request } from "express";
 import { createUserSchema } from "../../schemas/user";
 import { CreateUserUseCase } from "../../use-cases/user/create-user";
 import { ok } from "../helpers/responses";
-import { handleUserErrorResponse } from "../helpers/errors/handleUserError";
+import { handleErrorResponse } from "../helpers/errors/handleUserError";
 import { ControllerResponse } from "../helpers/types";
 
 export class CreateUserController {
@@ -20,7 +20,7 @@ export class CreateUserController {
     } catch (err) {
       console.error(err);
 
-      return handleUserErrorResponse(err);
+      return handleErrorResponse(err);
     }
   }
 }

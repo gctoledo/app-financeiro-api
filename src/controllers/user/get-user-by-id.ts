@@ -2,7 +2,7 @@ import { Request } from "express";
 import { ok } from "../helpers/responses";
 import { GetUserByIdUseCase } from "../../use-cases/user/get-user-by-id";
 import { validateId } from "../helpers/validation";
-import { handleUserErrorResponse } from "../helpers/errors/handleUserError";
+import { handleErrorResponse } from "../helpers/errors/handleUserError";
 import { InvalidIdError } from "../../errors/user";
 import { ControllerResponse } from "../helpers/types";
 
@@ -25,7 +25,7 @@ export class GetUserByIdController {
     } catch (err) {
       console.error(err);
 
-      return handleUserErrorResponse(err);
+      return handleErrorResponse(err);
     }
   }
 }

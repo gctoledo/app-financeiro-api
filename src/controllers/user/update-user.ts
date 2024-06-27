@@ -4,7 +4,7 @@ import { validateId } from "../helpers/validation";
 import { updateUserSchema } from "../../schemas/user";
 import { UpdateUserUseCase } from "../../use-cases/user/update-user";
 import { InvalidIdError } from "../../errors/user";
-import { handleUserErrorResponse } from "../helpers/errors/handleUserError";
+import { handleErrorResponse } from "../helpers/errors/handleUserError";
 import { ControllerResponse } from "../helpers/types";
 
 export class UpdateUserController {
@@ -28,7 +28,7 @@ export class UpdateUserController {
     } catch (err) {
       console.error(err);
 
-      return handleUserErrorResponse(err);
+      return handleErrorResponse(err);
     }
   }
 }
