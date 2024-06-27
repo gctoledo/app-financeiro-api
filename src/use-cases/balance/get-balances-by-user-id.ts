@@ -4,7 +4,11 @@ import { PostgresGetUserByIdRepository } from "../../repositories/postgres/user/
 import { ResponseBalance } from "../../schemas";
 
 export class GetBalancesByUserIdUseCase {
-  async execute(userId: string): Promise<ResponseBalance[]> {
+  async execute(
+    userId: string,
+    pageSize?: string,
+    page?: string
+  ): Promise<ResponseBalance[]> {
     const getUserByUserIdRepository = new PostgresGetUserByIdRepository();
 
     const user = await getUserByUserIdRepository.execute(userId);
@@ -15,7 +19,11 @@ export class GetBalancesByUserIdUseCase {
 
     const getBalanceByUserIdRepository =
       new PostgresGetBalancesByUserIdRepository();
-    const balances = await getBalanceByUserIdRepository.execute(userId);
+    const balances = await getBalanceByUserIdRepository.execute(
+      userId,
+      pageSize,
+      page
+    );
 
     return balances;
   }
