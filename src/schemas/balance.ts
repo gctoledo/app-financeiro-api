@@ -69,4 +69,12 @@ export const updateBalanceSchema = createBalanceSchema
 
 export type RequestBalance = z.infer<typeof createBalanceSchema>;
 export type ResponseBalance = Balance;
+export type ResponseBalances = {
+  balances: ResponseBalance[];
+  metadata: {
+    total_balances: number;
+    page: number;
+    total_pages: number;
+  };
+};
 export type UpdateBalance = z.infer<typeof updateBalanceSchema>;

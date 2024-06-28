@@ -22,13 +22,16 @@ export class GetBalancesByUserIdController {
 
       const getBalancesByUserIdUseCase = new GetBalancesByUserIdUseCase();
 
-      const balances = await getBalancesByUserIdUseCase.execute(
+      const { balances, metadata } = await getBalancesByUserIdUseCase.execute(
         userId,
         pageSize,
         page
       );
 
-      return ok(balances);
+      return ok({
+        balances,
+        metadata,
+      });
     } catch (err) {
       return handleErrorResponse(err);
     }

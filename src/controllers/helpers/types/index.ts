@@ -1,4 +1,8 @@
-import { ResponseBalance, ResponseUser } from "../../../schemas";
+import {
+  ResponseBalance,
+  ResponseBalances,
+  ResponseUser,
+} from "../../../schemas";
 
 export interface ErrorMessage {
   message: string;
@@ -22,7 +26,7 @@ export type BodyResponse =
   | ErrorMessage
   | ResponseUser
   | ResponseBalance
-  | ResponseBalance[]
+  | ResponseBalances
   | AuthLoginResponse
   | JWTResponse;
 
