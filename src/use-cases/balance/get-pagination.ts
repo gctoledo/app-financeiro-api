@@ -3,8 +3,12 @@ import { PostgresGetBalancesByUserIdRepository } from "../../repositories/postgr
 import { PostgresGetUserByIdRepository } from "../../repositories/postgres/user/get-user-by-id";
 import { ResponseBalances } from "../../schemas";
 
-export class GetBalancesByUserIdUseCase {
-  async execute(userId: string): Promise<ResponseBalances> {
+export class GetPaginationUseCase {
+  async execute(
+    userId: string,
+    pageSize: string,
+    page: string
+  ): Promise<ResponseBalances> {
     const getUserByUserIdRepository = new PostgresGetUserByIdRepository();
 
     const user = await getUserByUserIdRepository.execute(userId);
@@ -13,10 +17,18 @@ export class GetBalancesByUserIdUseCase {
       throw new UserNotFoundError();
     }
 
-    const getBalanceByUserIdRepository =
+    const getBalancesByUserIdRepository =
       new PostgresGetBalancesByUserIdRepository();
-    const { balances } = await getBalanceByUserIdRepository.execute(userId);
 
-    return { balances };
+    const { balances, metadata } = await getBalancesByUserIdRepository.execute(
+      userId,
+      pageSize,
+      page
+    );
+
+    return {
+      balances,
+      metadata,
+    };
   }
 }

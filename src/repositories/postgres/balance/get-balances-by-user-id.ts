@@ -7,13 +7,35 @@ export class PostgresGetBalancesByUserIdRepository {
     pageSize?: string,
     page?: string
   ): Promise<ResponseBalances> {
-    const skip =
-      page && pageSize ? (Number(page) - 1) * Number(pageSize) : undefined;
-    const take = Number(pageSize);
+    if (page && pageSize) {
+      const skip =
+        page && pageSize ? (Number(page) - 1) * Number(pageSize) : undefined;
+      const take = pageSize ? Number(pageSize) : undefined;
 
-    const balancesCounter = await prisma.balance.count();
+      const balancesCounter = await prisma.balance.count();
 
-    const totalPages = Math.ceil(balancesCounter / Number(pageSize));
+      const totalPages = Math.ceil(balancesCounter / Number(pageSize));
+
+      const balances = await prisma.balance.findMany({
+        where: {
+          user_id: userId,
+        },
+        orderBy: {
+          createdAt: "desc",
+        },
+        skip: skip ? skip : 0,
+        take: take ? take : undefined,
+      });
+
+      return {
+        balances,
+        metadata: {
+          page: Number(page) || 1,
+          total_balances: balancesCounter,
+          total_pages: totalPages,
+        },
+      };
+    }
 
     const balances = await prisma.balance.findMany({
       where: {
@@ -22,17 +44,8 @@ export class PostgresGetBalancesByUserIdRepository {
       orderBy: {
         createdAt: "desc",
       },
-      skip: skip ? skip : 0,
-      take: take ? take : undefined,
     });
 
-    return {
-      balances,
-      metadata: {
-        page: Number(page) || 1,
-        total_balances: balancesCounter,
-        total_pages: totalPages,
-      },
-    };
+    return { balances };
   }
 }

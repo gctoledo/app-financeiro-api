@@ -11,9 +11,6 @@ export class GetBalancesByUserIdController {
     try {
       const userId = httpRequest.userId;
 
-      const page = httpRequest.query.page as string;
-      const pageSize = httpRequest.query.pageSize as string;
-
       const idIsValid = validateId(userId);
 
       if (!idIsValid) {
@@ -22,15 +19,10 @@ export class GetBalancesByUserIdController {
 
       const getBalancesByUserIdUseCase = new GetBalancesByUserIdUseCase();
 
-      const { balances, metadata } = await getBalancesByUserIdUseCase.execute(
-        userId,
-        pageSize,
-        page
-      );
+      const { balances } = await getBalancesByUserIdUseCase.execute(userId);
 
       return ok({
         balances,
-        metadata,
       });
     } catch (err) {
       return handleErrorResponse(err);
