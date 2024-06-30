@@ -13,48 +13,47 @@ import { ControllerResponse } from "../types";
 import {
   BalanceAuthError,
   BalanceNotFoundError,
+  MissingParamsError,
 } from "../../../errors/balance";
 
 export const handleErrorResponse = (err: any): ControllerResponse => {
   console.error(err);
 
+  //BAD REQUESTS
+  if (
+    err instanceof MissingParamsError ||
+    InvalidIdError ||
+    EmailAlreadyInUseError
+  ) {
+    return badRequest({ message: err.message });
+  }
+
   if (err instanceof ZodError) {
     return badRequest({ message: err.errors[0].message });
   }
 
+  //UNAUTHORIZED
   if (
     err instanceof AuthenticationError ||
-    err instanceof AuthorizationError ||
-    BalanceAuthError
+    AuthorizationError ||
+    BalanceAuthError ||
+    jwt.JsonWebTokenError
   ) {
     return unauthorized({ message: err.message });
   }
 
-  if (err instanceof EmailAlreadyInUseError) {
-    return badRequest({ message: "Email already exists" });
-  }
-
-  if (err instanceof PrismaClientKnownRequestError) {
+  //NOT FOUND
+  if (
+    err instanceof PrismaClientKnownRequestError ||
+    UserNotFoundError ||
+    BalanceNotFoundError
+  ) {
     if (err.code === "P2025") {
       return notFound({ message: String(err.meta?.cause) });
     }
-  }
-
-  if (err instanceof UserNotFoundError) {
     return notFound({ message: err.message });
   }
 
-  if (err instanceof BalanceNotFoundError) {
-    return notFound({ message: err.message });
-  }
-
-  if (err instanceof InvalidIdError) {
-    return badRequest({ message: err.message });
-  }
-
-  if (err instanceof jwt.JsonWebTokenError) {
-    return unauthorized({ message: err.message });
-  }
-
+  //SERVER ERROR
   return serverError();
 };

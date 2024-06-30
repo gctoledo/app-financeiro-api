@@ -71,7 +71,7 @@ export type RequestBalance = z.infer<typeof createBalanceSchema>;
 export type ResponseBalance = Balance;
 export type ResponseBalances = {
   balances: ResponseBalance[];
-  metadata: {
+  metadata?: {
     total_balances: number;
     page: number;
     total_pages: number;
