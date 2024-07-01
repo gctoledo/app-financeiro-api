@@ -12,9 +12,13 @@ export class PostgresGetBalancesByUserIdRepository {
         page && pageSize ? (Number(page) - 1) * Number(pageSize) : undefined;
       const take = pageSize ? Number(pageSize) : undefined;
 
-      const balancesCounter = await prisma.balance.count();
+      const balancesCount = await prisma.balance.count({
+        where: {
+          user_id: userId,
+        },
+      });
 
-      const totalPages = Math.ceil(balancesCounter / Number(pageSize));
+      const totalPages = Math.ceil(balancesCount / Number(pageSize));
 
       const balances = await prisma.balance.findMany({
         where: {
@@ -31,7 +35,7 @@ export class PostgresGetBalancesByUserIdRepository {
         balances,
         metadata: {
           page: Number(page) || 1,
-          total_balances: balancesCounter,
+          total_balances: balancesCount,
           total_pages: totalPages,
         },
       };

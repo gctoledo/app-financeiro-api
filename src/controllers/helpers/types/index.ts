@@ -4,23 +4,34 @@ import {
   ResponseUser,
 } from "../../../schemas";
 
-export interface ErrorMessage {
+export type ErrorMessage = {
   message: string;
-}
+};
 
-export interface AuthLoginResponse {
+export type AuthLoginResponse = {
   token: string;
   data: ResponseUser;
-}
+};
 
-interface JWTResponse {
+type JWTResponse = {
   validate: boolean;
   user: {
     id: string;
     first_name: string;
     email: string;
   };
+};
+
+export interface AvailableDatesProps {
+  [key: number]: {
+    months: string[];
+    monthsIndex: number[];
+  };
 }
+
+export type MonthsAvailableResponse = {
+  available_dates: AvailableDatesProps;
+};
 
 export type BodyResponse =
   | ErrorMessage
@@ -28,7 +39,8 @@ export type BodyResponse =
   | ResponseBalance
   | ResponseBalances
   | AuthLoginResponse
-  | JWTResponse;
+  | JWTResponse
+  | MonthsAvailableResponse;
 
 export interface ControllerResponse {
   status: number;
