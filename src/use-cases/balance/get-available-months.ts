@@ -37,7 +37,6 @@ export class GetAvailableMonthsUseCase {
 
     const availableDates = balances.reduce(
       (acc, balance): AvailableDatesProps => {
-        console.log(balance.createdAt);
         const month = balance.createdAt.getUTCMonth();
         const year = balance.createdAt.getUTCFullYear();
 

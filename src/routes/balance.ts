@@ -7,6 +7,7 @@ import { isAuthenticated } from "../middlewares/isAuthenticated";
 import { GetBalanceByIdController } from "../controllers/balance/get-balance-by-id";
 import { GetBalancesByDateController } from "../controllers/balance/get-balances-by-date";
 import { GetPaginationController } from "../controllers/balance/get-pagination";
+import { GetAvailableMonthsController } from "../controllers/balance/get-available-months";
 
 const balanceRouter = Router();
 
@@ -18,6 +19,19 @@ balanceRouter.get(
     const getBalancesByUserIdController = new GetBalancesByUserIdController();
 
     const response = await getBalancesByUserIdController.execute(req);
+
+    res.status(response.status).send(response.body);
+  }
+);
+
+//GET-AVAILABLE-MONTHS ROUTE
+balanceRouter.get(
+  "/balances/months",
+  isAuthenticated,
+  async (req: Request, res: Response) => {
+    const getAvailablesMonthsController = new GetAvailableMonthsController();
+
+    const response = await getAvailablesMonthsController.execute(req);
 
     res.status(response.status).send(response.body);
   }
