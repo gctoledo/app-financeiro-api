@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "postinstall": "npx prisma generate",
-    "start:dev": "tsx watch src/index.ts"
+    "start:dev": "tsx watch src/index.ts",
+    "build": "tsup src",
+    "start": "node dist/index.cjs"
   },
   "keywords": [],
   "author": "",
@@ -20,6 +22,7 @@
     "@types/uuid": "^9.0.8",
     "@types/validator": "^13.11.10",
     "prisma": "^5.15.0",
+    "tsup": "^8.1.0",
     "tsx": "^4.11.2",
     "typescript": "^5.4.5"
   },
