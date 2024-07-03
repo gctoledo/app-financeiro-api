@@ -25,7 +25,7 @@ jobs:
       - name: Make envfile
         uses: SpicyPizza/create-envfile@v2.0
         with:
-          envkey_DB_URL: ${{ secrets.DB_URL }}
+          envkey_DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
       - name: Run migrations
         run: npx prisma migrate deploy
