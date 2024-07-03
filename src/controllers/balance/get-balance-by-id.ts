@@ -12,9 +12,10 @@ export class GetBalanceByIdController {
       const { balanceId } = httpRequest.params;
       const userId = httpRequest.userId;
 
-      const idIsValid = validateId(userId);
+      const userIdIsValid = validateId(userId);
+      const balanceIdIsValid = validateId(balanceId);
 
-      if (!idIsValid) {
+      if (!userIdIsValid || !balanceIdIsValid) {
         throw new InvalidIdError();
       }
 

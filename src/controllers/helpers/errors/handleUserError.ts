@@ -20,16 +20,16 @@ export const handleErrorResponse = (err: any): ControllerResponse => {
   console.error(err);
 
   //BAD REQUESTS
+  if (err instanceof ZodError) {
+    return badRequest({ message: err.errors[0].message });
+  }
+
   if (
     err instanceof MissingParamsError ||
     InvalidIdError ||
     EmailAlreadyInUseError
   ) {
     return badRequest({ message: err.message });
-  }
-
-  if (err instanceof ZodError) {
-    return badRequest({ message: err.errors[0].message });
   }
 
   //UNAUTHORIZED
